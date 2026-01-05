@@ -11,6 +11,7 @@ flatpickr('#myDate', {
 	dateFormat: 'd-m-Y',
 	locale: 'pl',
 	allowInput: false,
+	disableMobile: true
 })
 
 // ================== ELEMENTY ==================
