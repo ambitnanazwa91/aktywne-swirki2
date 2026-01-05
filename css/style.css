@@ -154,6 +154,7 @@ select.myInput {
   width: 260px;
   appearance: none;
   cursor: pointer;
+  color: #007bff;
 }
 .myInput:focus,
 input.myInput:focus,
@@ -168,60 +169,60 @@ select.myInput::-ms-expand {
 }
 
 input.myInput::-moz-placeholder {
-  color: #222;
+  color: #007bff;
   opacity: 1;
 }
 
 input.myInput::placeholder {
-  color: #222;
+  color: #007bff;
   opacity: 1;
 }
 
 /* Placeholder widoczny — Flatpickr override */
 input.flatpickr-input::-moz-placeholder {
-  color: #222;
+  color: #007bff;
   opacity: 1;
   text-align: center;
 }
 input.flatpickr-input::placeholder {
-  color: #222;
+  color: #007bff;
   opacity: 1;
   text-align: center;
 }
 
 /* Jeśli wciąż się nie pokazuje, wymusz display */
 input#myDate::-moz-placeholder {
-  color: #222 !important;
+  color: #007bff !important;
   opacity: 1 !important;
   text-align: center;
 }
 input#myDate::placeholder {
-  color: #222 !important;
+  color: #007bff !important;
   opacity: 1 !important;
   text-align: center;
 }
 
 input#myDate::-webkit-input-placeholder {
-  color: #222 !important;
+  color: #007bff !important;
   opacity: 1 !important;
 }
 
 input#myDate:-moz-placeholder {
-  color: #222 !important;
+  color: #007bff !important;
   opacity: 1 !important;
 }
 
 .flatpickr-input {
-  color: niebieski; /* np. #007bff */
+  color: #007bff; /* np. #007bff */
 }
 
 /* Kolor placeholdera */
 .flatpickr-input::-moz-placeholder {
-  color: niebieski; /* taki sam jak inne inputy */
+  color: #007bff; /* taki sam jak inne inputy */
   opacity: 1; /* iOS czasem ignoruje kolor bez tego */
 }
 .flatpickr-input::placeholder {
-  color: niebieski; /* taki sam jak inne inputy */
+  color: #007bff; /* taki sam jak inne inputy */
   opacity: 1; /* iOS czasem ignoruje kolor bez tego */
 }
 
