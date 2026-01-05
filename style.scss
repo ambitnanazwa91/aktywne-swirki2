@@ -100,7 +100,7 @@ body {
 	h1 {
 		font-size: 1.75rem;
 		color: $primary;
-        text-align: center;
+		text-align: center;
 	}
 }
 
@@ -135,7 +135,7 @@ body {
 footer {
 	color: darken($text, 20%);
 	padding-top: 1rem;
-    text-align: center;
+	text-align: center;
 	small {
 		opacity: 0.9;
 	}
@@ -156,7 +156,7 @@ select.myInput {
 	background: #fff;
 	-webkit-appearance: none;
 	-moz-appearance: none;
-    width: 260px;
+	width: 260px;
 	appearance: none;
 	cursor: pointer;
 	&:focus {
@@ -197,6 +197,16 @@ input#myDate::-webkit-input-placeholder {
 input#myDate:-moz-placeholder {
 	color: $text !important;
 	opacity: 1 !important;
+}
+
+.flatpickr-input {
+	color: niebieski; /* np. #007bff */
+}
+
+/* Kolor placeholdera */
+.flatpickr-input::placeholder {
+	color: niebieski; /* taki sam jak inne inputy */
+	opacity: 1; /* iOS czasem ignoruje kolor bez tego */
 }
 
 /* Responsywność */

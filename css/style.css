@@ -211,6 +211,20 @@ input#myDate:-moz-placeholder {
   opacity: 1 !important;
 }
 
+.flatpickr-input {
+  color: niebieski; /* np. #007bff */
+}
+
+/* Kolor placeholdera */
+.flatpickr-input::-moz-placeholder {
+  color: niebieski; /* taki sam jak inne inputy */
+  opacity: 1; /* iOS czasem ignoruje kolor bez tego */
+}
+.flatpickr-input::placeholder {
+  color: niebieski; /* taki sam jak inne inputy */
+  opacity: 1; /* iOS czasem ignoruje kolor bez tego */
+}
+
 /* Responsywność */
 @media (max-width: 600px) {
   .container-act {
