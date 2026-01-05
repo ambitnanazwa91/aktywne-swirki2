@@ -35,7 +35,7 @@ const personSelect = document.querySelector('#Name')
 // 			activitySelect.appendChild(option)
 // 		})
 // 	} catch (error) {
-// 		console.error('Błąd przy ładowaniu aktywności:', error)
+// 		console.error('Błąd przy testładowaniu aktywności:', error)
 // 	}
 // }
 
