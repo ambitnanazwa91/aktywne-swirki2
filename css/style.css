@@ -1,0 +1,242 @@
+@charset "UTF-8";
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: #f7f9fb;
+  color: #222;
+  line-height: 1.4;
+  font-size: 16px;
+}
+
+/* Layout */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.container-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.container-act {
+  width: 80%;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* Header */
+.header {
+  background: #fff;
+  border-bottom: 1px solid rgba(16, 24, 40, 0.04);
+}
+.header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.header .logo {
+  font-weight: 700;
+  color: #1e90ff;
+  font-size: 1.125rem;
+}
+.header .menu {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+.header .menu a {
+  color: #222;
+  text-decoration: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.header .menu a:hover, .header .menu a:focus {
+  background: rgba(30, 144, 255, 0.08);
+  color: #1e90ff;
+  outline: none;
+}
+.header .menu.is-open {
+  display: flex;
+  flex-direction: column;
+}
+.header .burger {
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+/* Hero */
+.hero {
+  padding: 2.25rem 0;
+}
+.hero h1 {
+  font-size: 1.75rem;
+  color: #1e90ff;
+  text-align: center;
+}
+
+/* Button */
+.btn {
+  display: inline-block;
+  background: #1e90ff;
+  color: #fff;
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+.btn:hover, .btn:focus {
+  background: rgb(0, 128.896, 254.4);
+  outline: none;
+}
+
+/* Card */
+.card {
+  background: #fff;
+  border-radius: 6px;
+  padding: 1rem;
+  border: 1px solid rgba(16, 24, 40, 0.04);
+  box-shadow: 0 6px 18px rgba(12, 20, 40, 0.03);
+}
+
+/* Footer */
+footer {
+  color: black;
+  padding-top: 1rem;
+  text-align: center;
+}
+footer small {
+  opacity: 0.9;
+}
+
+/* Input i select */
+.myInput,
+input.myInput,
+select.myInput {
+  height: 40px;
+  line-height: 40px;
+  padding: 0 0.75rem;
+  text-align: center;
+  text-align-last: center;
+  -moz-text-align-last: center;
+  border: 1px solid rgba(16, 24, 40, 0.04);
+  border-radius: 6px;
+  background: #fff;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 260px;
+  appearance: none;
+  cursor: pointer;
+}
+.myInput:focus,
+input.myInput:focus,
+select.myInput:focus {
+  outline: none;
+  border-color: #1e90ff;
+  box-shadow: 0 6px 20px rgba(30, 144, 255, 0.12);
+}
+
+select.myInput::-ms-expand {
+  display: none;
+}
+
+input.myInput::-moz-placeholder {
+  color: #222;
+  opacity: 1;
+}
+
+input.myInput::placeholder {
+  color: #222;
+  opacity: 1;
+}
+
+/* Placeholder widoczny — Flatpickr override */
+input.flatpickr-input::-moz-placeholder {
+  color: #222;
+  opacity: 1;
+  text-align: center;
+}
+input.flatpickr-input::placeholder {
+  color: #222;
+  opacity: 1;
+  text-align: center;
+}
+
+/* Jeśli wciąż się nie pokazuje, wymusz display */
+input#myDate::-moz-placeholder {
+  color: #222 !important;
+  opacity: 1 !important;
+  text-align: center;
+}
+input#myDate::placeholder {
+  color: #222 !important;
+  opacity: 1 !important;
+  text-align: center;
+}
+
+input#myDate::-webkit-input-placeholder {
+  color: #222 !important;
+  opacity: 1 !important;
+}
+
+input#myDate:-moz-placeholder {
+  color: #222 !important;
+  opacity: 1 !important;
+}
+
+/* Responsywność */
+@media (max-width: 600px) {
+  .container-act {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .container-act .myInput {
+    width: 100%;
+  }
+}
+@media (max-width: 768px) {
+  .header .menu {
+    display: none;
+  }
+  .header .burger {
+    display: block;
+  }
+  .container {
+    padding: 0.75rem;
+  }
+  .hero {
+    text-align: left;
+  }
+  .menu.is-open {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+}/*# sourceMappingURL=style.css.map */

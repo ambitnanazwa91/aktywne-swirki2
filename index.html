@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aktywne świrki 2026</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+    <!-- <header class="header">
+        <div class="container">
+            <div class="logo">Sportowe świrki</div>
+            <nav class="menu" aria-label="Główne">
+                <a href="#home">Start</a>
+                <a href="#about">O nas</a>
+                <a href="#contact">Kontakt</a>
+            </nav>
+            <button class="burger" aria-label="Otwórz menu">☰</button>
+        </div>
+    </header> -->
+
+    <main>
+        <section id="home" class="container hero">
+            <h1>Aktywne świrki 2026</h1>
+        </section>
+
+        <section id="main" class="container-main">
+            <div class="container-act">
+                <input id="myDate" type="text" class="myInput" placeholder="Wybierz date">
+                <select id="Activity" class="flat-input myInput" aria-label="Wybierz aktywność">
+                    <option value="" disabled selected>Wybierz aktywność</option>
+                    <option value="Bieganie">Spacer</option>
+                    <option value="Rower">Joga</option>
+                    <option value="Pływanie">Rower</option>
+                    <option value="Siłownia">Basen</option>
+                    <option value="Spacer">Nauka</option>
+                </select>
+                <select id="Name" class="flat-input myInput" aria-label="Wybierz osobe">
+                    <option value="" disabled selected>Wybierz osobe</option>
+                    <option value="Mati">Mati</option>
+                    <option value="Paulina">Paulina</option>
+                </select>
+            </div>
+            <div class="btn-accept btn"> Akceptuje </div>
+        </section>
+
+        <section id="activities" class="container-main">
+            <h2>Zapisane aktywności</h2>
+            <div id="activitiesList" class="activities-grid">
+                <!-- Aktywności będą ładować się tutaj dynamicznie -->
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="container text-center" style="padding:1rem 0;">
+        <small>&copy; 2026 Sportowe świrki</small>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+
+</html>
