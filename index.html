@@ -35,11 +35,11 @@
                 <input id="myDate" type="text" class="myInput" placeholder="Wybierz datę">
                 <select id="Activity" class="flat-input myInput" aria-label="Wybierz aktywność">
                     <option value="" disabled selected>Wybierz aktywność</option>
-                    <option value="Bieganie">Spacer</option>
-                    <option value="Rower">Joga</option>
-                    <option value="Pływanie">Rower</option>
-                    <option value="Siłownia">Basen</option>
-                    <option value="Spacer">Nauka</option>
+                    <option value="Spacer">Spacer</option>
+                    <option value="Joga">Joga</option>
+                    <option value="Rower">Rower</option>
+                    <option value="Basen">Basen</option>
+                    <option value="Nauka">Nauka</option>
                 </select>
                 <select id="Name" class="flat-input myInput" aria-label="Wybierz osobe">
                     <option value="" disabled selected>Wybierz osobe</option>
@@ -50,11 +50,18 @@
             <div class="btn-accept btn"> Akceptuje </div>
         </section>
 
-        <section id="activities" class="container-main">
-            <h2>Zapisane aktywności</h2>
-            <div id="activitiesList" class="activities-grid">
-                <!-- Aktywności będą ładować się tutaj dynamicznie -->
+        <section id="main-activities">
+            <div id="activities" class="container-main">
+                <h2>Zapisane aktywności</h2>
+                <div id="activitiesList" class="activities-grid">
+                    <!-- Aktywności będą ładować się tutaj dynamicznie -->
+                </div>
             </div>
+            <div class="summary">
+
+                <div id="activitiesCount" class="activitiesCount"></div>
+                <div id="wspolneCount" class="activitiesCount activitiesCount_right"></div>
+                </div>
         </section>
 
     </main>
@@ -62,6 +69,7 @@
     <footer class="container text-center" style="padding:1rem 0;">
         <small>&copy; 2026 Sportowe świrki</small>
     </footer>
+    </select>
 
     <script src="script.js" defer></script>
 </body>
