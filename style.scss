@@ -179,17 +179,19 @@ input.flatpickr-input:-ms-input-placeholder {
 
 
 .summary {
-	display: flex;
-	flex-direction: row;
+	  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
 }
 
 .activitiesCount {
 	display: flex;
 	flex-direction: row;
-	width: 100%;
-	justify-content: space-around;
+	margin-bottom: 10px;
+	width: 80%;
 	background-color: #ffffff;
-	margin: 10px;
 	border: transparent;
 	border-radius: 20px;
 	box-shadow: 0 6px 18px rgba(12, 20, 40, 0.03);

@@ -185,7 +185,7 @@ Array.from(allMonths)
     wspolneHTML += `
       <p class="month-row">
         ${counts['Paulina'][monthKey]?.display || counts['Mati'][monthKey]?.display}:
-        <span class="value">${wspolne * 10}</span>
+        <span class="value">${wspolne * 20}</span>
         <span class="currency">zł</span>
       </p>
     `
