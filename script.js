@@ -54,6 +54,7 @@ function setPlaceholderColor(input, color) {
 // Inicjalizacja Flatpickr
 flatpickr('#myDate', {
 	dateFormat: 'd-m-Y',
+	defaultDate: 'today',
 	locale: 'pl',
 	allowInput: false,
 	disableMobile: true,
