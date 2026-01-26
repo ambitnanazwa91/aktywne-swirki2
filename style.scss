@@ -24,11 +24,15 @@ body {
 
 /* Layout */
 
-#home {
-	text-align: center;
-	background-color: #8cbcf0;
-	border-bottom: 1px solid grey;
-	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+.logo-wrapper {
+	display: flex;
+	justify-content: center; /* poziomo */
+	align-items: center; /* pionowo */
+	width: 100%;
+}
+
+.logo {
+	width: 100%;
 }
 
 .container {
@@ -166,7 +170,6 @@ input.flatpickr-input:-ms-input-placeholder {
 	justify-content: space-around;
 	width: 100%;
 	color: black;
-
 }
 
 .paulina {
@@ -177,13 +180,11 @@ input.flatpickr-input:-ms-input-placeholder {
 	background-color: #8cbcf0;
 }
 
-
 .summary {
-	  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .activitiesCount {
@@ -196,10 +197,8 @@ input.flatpickr-input:-ms-input-placeholder {
 	border-radius: 20px;
 	box-shadow: 0 6px 18px rgba(12, 20, 40, 0.03);
 	text-align: center;
-		font-size: 0.8em;
+	font-size: 0.8em;
 }
-
-
 
 #wspolneCount {
 	background-color: white;
@@ -226,14 +225,13 @@ input.flatpickr-input:-ms-input-placeholder {
 	white-space: nowrap;
 }
 
-.value{
-padding-left:5px ;
+.value {
+	padding-left: 5px;
 }
 
 .currency {
 	padding-left: 2px;
 }
-
 
 .month-row {
 	display: flex;
@@ -243,11 +241,11 @@ padding-left:5px ;
 	font-size: 0.9rem !important;
 }
 
-.value, .currency {
+.value,
+.currency {
 	font-size: 1.1rem !important;
 	color: #757575;
 }
-
 
 .main-activities-right_left {
 	width: 100%;

@@ -20,11 +20,15 @@ body {
 }
 
 /* Layout */
-#home {
-  text-align: center;
-  background-color: #8cbcf0;
-  border-bottom: 1px solid grey;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+.logo-wrapper {
+  display: flex;
+  justify-content: center; /* poziomo */
+  align-items: center; /* pionowo */
+  width: 100%;
+}
+
+.logo {
+  width: 100%;
 }
 
 .container {
@@ -232,7 +236,8 @@ input.flatpickr-input:-ms-input-placeholder {
   font-size: 0.9rem !important;
 }
 
-.value, .currency {
+.value,
+.currency {
   font-size: 1.1rem !important;
   color: #757575;
 }
