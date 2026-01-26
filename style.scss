@@ -1,4 +1,4 @@
-$primary: #1e90ff;
+$primary: #000000;
 $bg: #f7f9fb;
 $text: #222;
 $radius: 6px;
@@ -20,6 +20,8 @@ body {
 	color: $text;
 	line-height: 1.4;
 	font-size: 16px;
+	background-color: rgb(247, 224, 96);
+
 }
 
 /* Layout */
@@ -173,11 +175,11 @@ input.flatpickr-input:-ms-input-placeholder {
 }
 
 .paulina {
-	background-color: rgb(215, 135, 222);
+	background-color: rgba(236, 175, 231, 0.753);
 }
 
 .mati {
-	background-color: #8cbcf0;
+	background-color: #99deebee;
 }
 
 .summary {

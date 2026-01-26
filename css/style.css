@@ -17,6 +17,7 @@ body {
   color: #222;
   line-height: 1.4;
   font-size: 16px;
+  background-color: rgb(247, 224, 96);
 }
 
 /* Layout */
@@ -58,7 +59,7 @@ body {
 /* Button */
 .btn {
   display: inline-block;
-  background: #1e90ff;
+  background: #000000;
   color: #fff;
   padding: 0.5rem 0.9rem;
   border-radius: 6px;
@@ -68,7 +69,7 @@ body {
   transition: background 0.12s ease;
 }
 .btn:hover, .btn:focus {
-  background: rgb(0, 128.896, 254.4);
+  background: black;
   outline: none;
 }
 
@@ -123,8 +124,8 @@ select.myInput {
 input.myInput:focus,
 select.myInput:focus {
   outline: none;
-  border-color: #1e90ff;
-  box-shadow: 0 6px 20px rgba(30, 144, 255, 0.12);
+  border-color: #000000;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
 }
 
 select.myInput::-ms-expand {
@@ -168,11 +169,11 @@ input.flatpickr-input:-ms-input-placeholder {
 }
 
 .paulina {
-  background-color: rgb(215, 135, 222);
+  background-color: rgba(236, 175, 231, 0.753);
 }
 
 .mati {
-  background-color: #8cbcf0;
+  background-color: rgba(153, 222, 235, 0.9333333333);
 }
 
 .summary {
