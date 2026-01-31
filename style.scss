@@ -21,7 +21,6 @@ body {
 	line-height: 1.4;
 	font-size: 16px;
 	background-color: rgb(247, 224, 96);
-
 }
 
 /* Layout */
@@ -77,6 +76,43 @@ body {
 		background: darken($primary, 6%);
 		outline: none;
 	}
+}
+
+.month-changer {
+	width: 180px;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	flex-direction: row;
+
+	button {
+		background: transparent; /* usuwa tło */
+		border: none; /* usuwa obramowanie */
+		color: inherit; /* zachowuje kolor tekstu z otoczenia, albo ustaw np. black */
+		padding: 0; /* opcjonalnie usuwa padding */
+		cursor: pointer;
+	}
+
+	p {
+		font-size: 1.2em;
+		font-family: 'Roboto', sans-serif;
+	}
+
+	.icon {
+		border: 2px solid black;
+		border-radius: 20%;
+		padding: 3px 8px;
+		background-color: #fafafa;
+		font-size: 1.1rem;
+	}
+}
+
+.buttonDsl {
+  background-color: #e0e0e0 !important;
+  color: #888888 !important;
+  border: none !important;
+  cursor: not-allowed !important; /* teraz kursora nie trzeba ustawiać w JS */
+  opacity: 0.8 !important;
 }
 
 /* Card */

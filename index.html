@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pl.js"></script>
+    <script src="https://kit.fontawesome.com/5af0fc9bc5.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -49,6 +56,7 @@
                     <option value="" disabled selected>Wybierz osobe</option>
                     <option value="Mati">Mati</option>
                     <option value="Paulina">Paulina</option>
+                    <option value="Both">Razem</option>
                 </select>
             </div>
             <div class="btn-accept btn"> Akceptuje </div>
@@ -56,7 +64,11 @@
 
         <section id="main-activities">
             <div id="activities" class="container-main">
-                <h2>Zapisane aktywności</h2>
+                <div class="month-changer">
+                    <div><button><i class="fa-solid fa-angle-left iconleft icon"></i></button></div>
+                    <p class="currentMonth">Styczeń</p>
+                    <div><button><i class="fa-solid fa-angle-right iconright icon"></i></button></div>
+                </div>
                 <div id="activitiesList" class="activities-grid">
                     <!-- Aktywności będą ładować się tutaj dynamicznie -->
                 </div>
