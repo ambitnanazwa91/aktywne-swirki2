@@ -240,10 +240,14 @@ input.flatpickr-input:-ms-input-placeholder {
 
 #wspolneCount {
 	background-color: white;
-	width: 60%;
+	display: flex;
+	flex-direction: column;
+	width: 90%;
 	border: transparent;
 	border-radius: 20px;
 	box-shadow: 0 6px 18px rgba(12, 20, 40, 0.03);
+	padding: 10px 10px;
+	padding-right: 20px;
 	p {
 		width: 100%;
 		text-align: center;
@@ -263,32 +267,121 @@ input.flatpickr-input:-ms-input-placeholder {
 	white-space: nowrap;
 }
 
-.value {
-	padding-left: 5px;
-}
 
-.currency {
-	padding-left: 2px;
-}
+// .month-name {
+// 	width: 20%
+// }
+// .value {
+// 	padding-left: 5%
+// }
+
+// .currency {
+// 	padding-left: 2%
+// }
+
+// .modal-values {
+// 	width: 60%;
+// }
+
+// .month-row {
+// 	display: flex;
+// 	flex-direction: row;
+// 	align-items: center;
+// 	justify-content: center;
+// 	font-size: 0.9rem !important;
+// }
 
 .month-row {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	font-size: 0.9rem !important;
+  display: grid;
+  grid-template-columns: minmax(140px, 1.5fr) 1fr auto 50px; /* miesiąc | value | zł | ikona */
+  grid-template-rows: auto 1fr; 
+  gap: 4px 8px; 
+  margin: 5px 0;
+  align-items: start;
+  padding: 4px 8px;
+  border: solid 1px rgb(175, 174, 174);
+  border-radius: 20px;
 }
 
-.value,
-.currency {
-	font-size: 1.1rem !important;
-	color: #757575;
+.month-name {
+  grid-column: 1 / 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
+.value {
+  grid-column: 2 / 3;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.currency {
+  grid-column: 3 / 4;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.open-modal-btn {
+  grid-column: 4 / 5;     /* ostatnia kolumna */
+  grid-row: 1 / span 2;   /* obejmuje oba rzędy */
+  justify-self: center;
+  padding: 4px;
+  font-size: 14px;
+}
+
+/* modal-values zajmuje dolny wiersz i całą szerokość */
+.modal-values {
+  grid-column: 1 / -1;
+  grid-row: 2 / 3;
+  overflow-wrap: break-word;
+  white-space: normal;
+  font-size: 10px;
+}
+
+/* responsywność */
+@media (max-width: 500px) {
+  .month-row {
+    grid-template-columns: minmax(100px, 1.3fr) 1fr auto 40px;
+    gap: 4px 4px;
+  }
+  .month-name {
+    font-size: 14px;
+  }
+  .value, .currency {
+    font-size: 13px;
+  }
+  .open-modal-btn {
+    font-size: 12px;
+  }
+  .modal-values {
+    font-size: 10px;
+  }
+}
+
+// .value,
+// .currency {
+// 	font-size: 1.1rem !important;
+// 	color: #757575;
+// }
+
+
 
 .main-activities-right_left {
 	width: 100%;
 	padding-top: 5px;
 	text-align: center;
+}
+
+
+
+/* buyt icon */
+.buy-btn {
+  cursor: pointer;
+  background-color: transparent;
+  border: transparent;
+  margin-left: 5px;
+  padding-top: 2px;
 }
 
 /* Flatpickr input */

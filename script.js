@@ -1,3 +1,5 @@
+console.log('JS ZAŁADOWANY')
+
 // ================== SUPABASE ==================
 const { createClient } = supabase
 
@@ -7,62 +9,6 @@ const SUPABASE_KEY = 'sb_publishable_DlbO2_NlF_ArEN-Q2yGgSA_BCcGCfPv'
 const supa = createClient(SUPABASE_URL, SUPABASE_KEY)
 
 // ================== FLATPICKR ==================
-// flatpickr('#myDate', {
-// 	dateFormat: 'd-m-Y',
-// 	locale: 'pl',
-// 	allowInput: false,
-// 	disableMobile: true,
-// 	placeholder: 'Wybierz datę',
-// 	onChange: function(selectedDates, dateStr, instance) {
-// 		// fix dla iOS: zawsze niebieski tekst
-// 		instance.input.style.color = '#007bff';
-// 	}
-// });
-
-//Miesiąc?
-window.month = 3
-window.year = 2026
-
-// check obecny miesiąc
-function updateCurrentMonth() {
-	window.month = new Date().getMonth() + 1
-	// styczeń = 1, luty = 2, ...
-	updateMonthLabel()
-}
-
-// Funkcja dodająca styl dla placeholdera dynamicznie
-function setPlaceholderColor(input, color) {
-	const styleId = 'flatpickr-placeholder-style'
-	let styleTag = document.getElementById(styleId)
-
-	if (!styleTag) {
-		styleTag = document.createElement('style')
-		styleTag.id = styleId
-		document.head.appendChild(styleTag)
-	}
-
-	const className = input.className.split(' ').join('.')
-	styleTag.innerHTML += `
-        input.${className}::placeholder {
-            color: ${color} !important;
-            opacity: 1 !important;
-        }
-        input.${className}::-webkit-input-placeholder {
-            color: ${color} !important;
-            opacity: 1 !important;
-        }
-        input.${className}::-moz-placeholder {
-            color: ${color} !important;
-            opacity: 1 !important;
-        }
-        input.${className}:-ms-input-placeholder {
-            color: ${color} !important;
-            opacity: 1 !important;
-        }
-    `
-}
-
-// Inicjalizacja Flatpickr
 flatpickr('#myDate', {
 	dateFormat: 'd-m-Y',
 	defaultDate: 'today',
@@ -70,15 +16,18 @@ flatpickr('#myDate', {
 	allowInput: false,
 	disableMobile: true,
 	placeholder: 'Wybierz datę',
-	onReady: function (selectedDates, dateStr, instance) {
-		// kolor tekstu i placeholdera
-		instance.input.style.color = '#007bff'
-		setPlaceholderColor(instance.input, '#007bff')
-	},
-	onChange: function (selectedDates, dateStr, instance) {
-		instance.input.style.color = '#007bff'
-	},
+	onReady: (sel, str, inst) => inst.input.style.color = '#007bff',
+	onChange: (sel, str, inst) => inst.input.style.color = '#007bff',
 })
+
+// ================== GLOBAL ==================
+window.month = 3
+window.year = 2026
+
+function updateCurrentMonth() {
+	window.month = new Date().getMonth() + 1
+	updateMonthLabel()
+}
 
 // ================== ELEMENTY ==================
 const btn = document.querySelector('.btn-accept')
@@ -89,396 +38,260 @@ const personSelect = document.querySelector('#Name')
 // ================== WYŚWIETL AKTYWNOŚCI ==================
 async function displayActivities() {
 	try {
-		const { data, error } = await supa.from('activities').select('*').order('date_of_activity', { ascending: true })
+		const { data } = await supa.from('activities').select('*')
 
-		if (error) throw error
+		const list = document.getElementById('activitiesList')
+		if (!list) return
 
-		const activitiesList = document.getElementById('activitiesList')
-		if (!activitiesList) {
-			console.error('Element #activitiesList nie znaleziony w DOM')
-			return
-		}
+		list.innerHTML = ''
 
-		activitiesList.innerHTML = ''
-
-		if (data.length === 0) {
-			activitiesList.innerHTML = '<p>Brak zapisanych aktywności</p>'
-			return
-		}
-
-		// filtrujemy po miesiącu i roku
-		const filteredData = data.filter(activity => {
-			const [day, month, year] = activity.date_of_activity.split('-').map(Number)
-			return month === window.month && year === window.year
+		const filtered = data.filter(a => {
+			const [d, m, y] = a.date_of_activity.split('-').map(Number)
+			return m === window.month && y === window.year
 		})
 
-		if (filteredData.length === 0) {
-			activitiesList.innerHTML = '<p>Brak zapisanych aktywności w tym miesiącu</p>'
+		if (!filtered.length) {
+			list.innerHTML = '<p>Brak zapisanych aktywności</p>'
 			return
 		}
 
-		filteredData.forEach(activity => {
-			const card = document.createElement('div')
-			card.className = 'card'
-			if (activity.person === 'Mati') card.classList.add('mati')
-			else if (activity.person === 'Paulina') card.classList.add('paulina')
+		filtered.forEach(a => {
+			const div = document.createElement('div')
+			div.className = 'card'
+			if (a.person === 'Mati') div.classList.add('mati')
+			if (a.person === 'Paulina') div.classList.add('paulina')
 
-			card.innerHTML = `
-        <h3>${activity.activity}</h3>
-        <p><strong>Data:</strong> ${activity.date_of_activity}</p>
-        <p><strong>Osoba:</strong> ${activity.person}</p>
-      `
-			activitiesList.appendChild(card)
+			div.innerHTML = `
+				<h3>${a.activity}</h3>
+				<p>${a.date_of_activity}</p>
+				<p>${a.person}</p>
+			`
+			list.appendChild(div)
 		})
-	} catch (error) {
-		console.error('Błąd przy ładowaniu aktywności:', error)
+	} catch (e) {
+		console.error(e)
 	}
 }
 
+// ================== COUNT + WSPÓLNE ==================
 async function loadActivityCounts() {
 	try {
-		const { data, error } = await supa.from('activities').select('person, date_of_activity')
+		const { data } = await supa.from('activities').select('person, date_of_activity')
 
-		if (error) throw error
+		const counts = { Paulina: {}, Mati: {} }
 
-		const counts = {
-			Paulina: {},
-			Mati: {},
-		}
+		const monthsPL = ['styczeń','luty','marzec','kwiecień','maj','czerwiec','lipiec','sierpień','wrzesień','październik','listopad','grudzień']
 
-		const monthsPL = [
-			'styczeń',
-			'luty',
-			'marzec',
-			'kwiecień',
-			'maj',
-			'czerwiec',
-			'lipiec',
-			'sierpień',
-			'wrzesień',
-			'październik',
-			'listopad',
-			'grudzień',
-		]
+		data.forEach(i => {
+			const [d, m, y] = i.date_of_activity.split('-').map(Number)
+			const key = `${y}-${m-1}`
+			const label = `${monthsPL[m-1]} ${y}`
 
-		// Liczenie aktywności per osoba i miesiąc
-		data.forEach(item => {
-			const [day, month, year] = item.date_of_activity.split('-').map(Number)
-			const date = new Date(year, month - 1, day)
-			const monthKey = `${year}-${date.getMonth()}` // klucz do sortowania
-			const displayMonth = `${monthsPL[date.getMonth()]} ${year}`
-
-			if (!counts[item.person]) counts[item.person] = {}
-			if (!counts[item.person][monthKey]) counts[item.person][monthKey] = { display: displayMonth, count: 0 }
-			counts[item.person][monthKey].count++
+			if (!counts[i.person][key]) counts[i.person][key] = { display: label, count: 0 }
+			counts[i.person][key].count++
 		})
 
-		// Tworzenie kolumn do HTML
-		const createColumns = person => {
-			const sorted = Object.entries(counts[person])
-				.sort((a, b) => b[0].localeCompare(a[0]))
-				.map(([_, val]) => `<p>${val.display}: ${val.count}</p>`)
-				.join('')
-			return `<div class="main-activities-right_column"><p>${person}</p>${sorted}</div>`
+		// ===== kolumny =====
+		const createCol = p => {
+			return `<div class="main-activities-right_column">
+				<p>${p}</p>
+				${Object.values(counts[p]).map(v=>`<p>${v.display}: ${v.count}</p>`).join('')}
+			</div>`
 		}
 
-		const countDiv = document.getElementById('activitiesCount')
-		countDiv.innerHTML = createColumns('Paulina') + createColumns('Mati')
+		document.getElementById('activitiesCount').innerHTML =
+			createCol('Paulina') + createCol('Mati')
 
-		// ================== WYLICZANIE WSPÓLNYCH AKTYWNOŚCI PER MIESIĄC ==================
+		// ===== wspólne =====
 		const wspolneDiv = document.getElementById('wspolneCount')
-		if (!wspolneDiv) return
 
-		// zbieramy wszystkie miesiące
-		const allMonths = new Set([...Object.keys(counts['Paulina']), ...Object.keys(counts['Mati'])])
+		const allMonths = new Set([
+			...Object.keys(counts.Paulina),
+			...Object.keys(counts.Mati)
+		])
 
-		// tworzymy HTML z wynikami per miesiąc
-		let wspolneHTML = ''
+		let html = ''
 
-		Array.from(allMonths)
-			.sort((a, b) => a.localeCompare(b)) // STYCZEŃ → LUTY → MARZEC
-			.forEach(monthKey => {
-				const paulinaCount = counts['Paulina'][monthKey]?.count || 0
-				const matiCount = counts['Mati'][monthKey]?.count || 0
-				const wspolne = Math.min(paulinaCount, matiCount)
+		Array.from(allMonths).sort().forEach(key => {
+			const p = counts.Paulina[key]?.count || 0
+			const m = counts.Mati[key]?.count || 0
+			const wsp = Math.min(p, m)
 
-				wspolneHTML += `
-      <p class="month-row">
-        ${counts['Paulina'][monthKey]?.display || counts['Mati'][monthKey]?.display}:
-        <span class="value">${wspolne * 20}</span>
-        <span class="currency">zł</span>
-      </p>
-    `
-			})
+			html += `
+<p class="month-row" data-month="${key}">
+  <span class="month-name">${counts.Paulina[key]?.display || counts.Mati[key]?.display}</span>
+  
+  <span class="value">${wsp * 20}</span>
+  <span class="currency">zł</span>
+  
+  <button class="open-modal-btn buy-btn" type="button">
+    <i class="fa-solid fa-bag-shopping"></i>
+  </button>
+  
+  <span class="modal-values">&nbsp;</span>
+</p>`
+		})
 
-		wspolneDiv.innerHTML = `
-  <div class="main-activities-right_column">
-    <p class="title">Nagrody za:</p>
-    ${wspolneHTML}
-  </div>
-`
-	} catch (err) {
-		console.error('Błąd przy ładowaniu liczby aktywności:', err)
+		wspolneDiv.innerHTML = html
+
+async function loadPersonValues() {
+	const { data } = await supa.from('person').select('*')
+
+	document.querySelectorAll('.month-row').forEach(row => {
+		const el = row.querySelector('.modal-values')
+		if (!el) return
+
+		const paulina = data.find(d => d.person === 'Paulina' && d.month === row.dataset.month)
+		const mati = data.find(d => d.person === 'Mati' && d.month === row.dataset.month)
+
+		el.innerHTML = ''
+
+		// Paulina
+		if (paulina?.item) {
+			el.innerHTML += `<span class="modal-value">Paulina kupiła: ${paulina.item}</span>`
+		} else {
+			el.innerHTML += `<span class="modal-value" style="color:#e74c3c;font-weight:bold">Paulina: wpisz zakupy!</span>`
+		}
+
+		// Mati
+		if (mati?.item) {
+			el.innerHTML += `<span class="modal-value"> | Mati kupił: ${mati.item}</span>`
+		} else {
+			el.innerHTML += `<span class="modal-value" style="color:#e74c3c;font-weight:bold"> | Mati: wpisz zakupy!</span>`
+		}
+	})
+}
+
+		// ======= TU DODANE: ZAŁADUJ WARTOŚCI Z PERSON =======
+		await loadPersonValues()
+
+	} catch (e) {
+		console.error(e)
 	}
 }
 
-// Zmiana miesięcy
+// ================== LOAD PERSON DO SPAN ==================
+async function loadPersonValues() {
+	const { data } = await supa.from('person').select('*')
 
-const nextMonthBtn = document.querySelector('.iconright')
-const currentMonthBtn = document.querySelector('.currentMonth')
-const prevMonthBtn = document.querySelector('.icoleft')
+	data.forEach(row => {
+		const el = document.querySelector(`.month-row[data-month="${row.month}"] .modal-values`)
+		if (!el) return
 
-const monthsPL = [
-	'0',
-	'Styczeń',
-	'Luty',
-	'Marzec',
-	'Kwiecień',
-	'Maj',
-	'Czerwiec',
-	'Lipiec',
-	'Sierpień',
-	'Wrzesień',
-	'Październik',
-	'Listopad',
-	'Grudzień',
-]
+		if (row.person === 'Paulina') {
+			el.innerHTML += `<span class="modal-value">Paulina: ${row.item}</span>`
+		}
+		if (row.person === 'Mati') {
+			el.innerHTML += `<span class="modal-value"> | Mati ${row.item}</span>`
+		}
+	})
+}
 
-console.log(nextMonthBtn, currentMonthBtn)
+// ================== MODAL ==================
+const modal = document.createElement('div')
+modal.style.cssText = `
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,.5);display:none;
+align-items:center;justify-content:center;
+`
+modal.innerHTML = `
+<div style="background:white;padding:20px;border-radius:20px;">
+<p style="text-align: center;">Co kupiliście?</p>
+<input id="i1" placeholder="Co kupiła Paulina?" style="text-align: center;" ><br>
+<input id="i2" placeholder="Co kupił Mati?" style="text-align: center;"><br>
+<button id="save" style="padding:5px;margin-top:5px;">Zapisz</button>
+<button id="close" style="padding:5px;margin-top:5px;">Anuluj</button>
+</div>`
+document.body.appendChild(modal)
 
-// po kliku dodaje miesiąc
+let currentMonthKey = null
+
+document.addEventListener('click', async e => {
+	const btn = e.target.closest('.open-modal-btn')
+	if (!btn) return
+
+	const row = btn.closest('.month-row')
+	currentMonthKey = row.dataset.month
+
+	const { data } = await supa
+		.from('person')
+		.select('*')
+		.eq('month', currentMonthKey)
+
+	document.getElementById('i1').value =
+		data.find(d=>d.person==='Paulina')?.item || ''
+
+	document.getElementById('i2').value =
+		data.find(d=>d.person==='Mati')?.item || ''
+
+	modal.style.display = 'flex'
+})
+
+document.getElementById('save').onclick = async () => {
+	const v1 = document.getElementById('i1').value
+	const v2 = document.getElementById('i2').value
+
+	await supa.from('person').upsert([
+		{ person:'Paulina', item:v1, month:currentMonthKey },
+		{ person:'Mati', item:v2, month:currentMonthKey }
+	], { onConflict:['person','month'] })
+
+	modal.style.display = 'none'
+	loadActivityCounts() // odśwież
+}
+
+document.getElementById('close').onclick = () => modal.style.display = 'none'
+
+// ================== MIESIĄCE ==================
+const monthsPL = ['0','Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień']
+
+function updateMonthLabel() {
+	document.querySelector('.currentMonth').textContent = monthsPL[window.month]
+}
+
 const showNextMonth = () => {
 	window.month++
 	updateMonthLabel()
-	clearAct()
-	disabledBtn()
-
-	async function displayActivities() {
-		try {
-			const { data, error } = await supa.from('activities').select('*').order('date_of_activity', { ascending: true }) // sortowanie po właściwej kolumnie
-
-			if (error) throw error
-
-			const activitiesList = document.getElementById('activitiesList')
-			if (!activitiesList) {
-				console.error('Element #activitiesList nie znaleziony w DOM')
-				return
-			}
-
-			activitiesList.innerHTML = ''
-
-			if (!data || data.length === 0) {
-				activitiesList.innerHTML = '<p>Brak zapisanych aktywności</p>'
-				return
-			}
-
-			// filtrujemy dane po miesiącu i roku z globalnych zmiennych
-			const filtered = data.filter(activity => {
-				const [day, mon, yr] = activity.date_of_activity.split('-').map(Number)
-				return mon === month && yr === year
-			})
-
-			if (filtered.length === 0) {
-				activitiesList.innerHTML = '<p>Brak aktywności w tym miesiącu</p>'
-				return
-			}
-
-			filtered.forEach(activity => {
-				const card = document.createElement('div')
-				card.className = 'card'
-				if (activity.person === 'Mati') {
-					card.classList.add('mati')
-				} else if (activity.person === 'Paulina') {
-					card.classList.add('paulina')
-				}
-
-				card.innerHTML = `
-                <h3>${activity.activity}</h3>
-                <p><strong>Data:</strong> ${activity.date_of_activity}</p>
-                <p><strong>Osoba:</strong> ${activity.person}</p>
-            `
-				activitiesList.appendChild(card)
-			})
-		} catch (error) {
-			console.error('Błąd przy ładowaniu aktywności:', error)
-		}
-	}
-
 	displayActivities()
-	console.log(window.month)
-}
-
-//czyszczenie zawartości activites
-const clearAct = () => {
-	const activitiesList = document.querySelector('#activitiesList')
-	console.log(activitiesList)
-
-	activitiesList.innerHTML = ''
 }
 
 const showPrevMonth = () => {
 	window.month--
 	updateMonthLabel()
-	clearAct()
-	disabledBtn()
-
-	async function displayActivities() {
-		try {
-			const { data, error } = await supa.from('activities').select('*').order('date_of_activity', { ascending: true }) // sortowanie po właściwej kolumnie
-
-			if (error) throw error
-
-			const activitiesList = document.getElementById('activitiesList')
-			if (!activitiesList) {
-				console.error('Element #activitiesList nie znaleziony w DOM')
-				return
-			}
-
-			activitiesList.innerHTML = ''
-
-			if (!data || data.length === 0) {
-				activitiesList.innerHTML = '<p>Brak zapisanych aktywności</p>'
-				return
-			}
-
-			// filtrujemy dane po miesiącu i roku z globalnych zmiennych
-			const filtered = data.filter(activity => {
-				const [day, mon, yr] = activity.date_of_activity.split('-').map(Number)
-				return mon === month && yr === year
-			})
-
-			if (filtered.length === 0) {
-				activitiesList.innerHTML = '<p>Brak aktywności w tym miesiącu</p>'
-				return
-			}
-
-			filtered.forEach(activity => {
-				const card = document.createElement('div')
-				card.className = 'card'
-				if (activity.person === 'Mati') {
-					card.classList.add('mati')
-				} else if (activity.person === 'Paulina') {
-					card.classList.add('paulina')
-				}
-
-				card.innerHTML = `
-                <h3>${activity.activity}</h3>
-                <p><strong>Data:</strong> ${activity.date_of_activity}</p>
-                <p><strong>Osoba:</strong> ${activity.person}</p>
-            `
-				activitiesList.appendChild(card)
-			})
-		} catch (error) {
-			console.error('Błąd przy ładowaniu aktywności:', error)
-		}
-	}
-
 	displayActivities()
-	console.log(window.month)
 }
 
-// check czy disabled button
+document.querySelector('.iconright').parentElement.onclick = showNextMonth
+document.querySelector('.iconleft').parentElement.onclick = showPrevMonth
 
-const disabledBtn = () => {
-  if (window.month === 1) {
-    const buttonBG = document.querySelector('.iconleft');
-    buttonBG.classList.add('buttonDsl');
-    buttonBG.parentElement.disabled = true;
-  } else if (window.month === 12) {
-    const buttonBG = document.querySelector('.iconright');
-    buttonBG.classList.add('buttonDsl');
-    buttonBG.parentElement.disabled = true;
-  } else {
-    const buttons = document.querySelectorAll('.iconleft, .iconright');
-    buttons.forEach(icon => {
-      icon.classList.remove('buttonDsl');
-      icon.parentElement.disabled = false;
-    });
-  }
-}
-
-
-/// updejt paragrafu
-const updateMonthLabel = () => {
-	const currentMonthBtn = document.querySelector('.currentMonth')
-	currentMonthBtn.textContent = `${monthsPL[window.month]}`
-}
-
-//Podpięcie pod buttony
-document.querySelector('.iconright').parentElement.addEventListener('click', showNextMonth)
-
-document.querySelector('.iconleft').parentElement.addEventListener('click', showPrevMonth)
-
-// Wywołanie po załadowaniu strony
+// ================== START ==================
 window.addEventListener('load', () => {
 	displayActivities()
 	loadActivityCounts()
-	updateCurrentMonth() ///wyłącz jak chcesz sprawdzić jak działają miesiące po przeładowaniu (czy łapie akutalny)
-	disabledBtn()
-
-	console.log(window.month)
+	updateCurrentMonth()
 })
 
-// ================== ZAPIS DO BAZY ==================
+// ================== DODAWANIE ==================
 btn.addEventListener('click', async () => {
-  const date = dateInput.value
-  const activity = activitySelect.value
-  const person = personSelect.value
-  console.log(person);
+	const date = dateInput.value
+	const activity = activitySelect.value
+	const person = personSelect.value
 
-  if (!date || !activity || !person) {
-    alert('Wybierz datę, aktywność oraz osobę!')
-    return
-  }
+	if (!date || !activity || !person) return alert('uzupełnij')
 
-  let records = []
+	let records = []
 
-  if (person === 'Both') {
-    records = [
-      {
-        activity: activity,
-        date_of_activity: date,
-        person: 'Mati',
-      },
-      {
-        activity: activity,
-        date_of_activity: date,
-        person: 'Paulina',
-      }
-    ]
-  } else {
-    records = [
-      {
-        activity: activity,
-        date_of_activity: date,
-        person: person,
-      }
-    ]
-  }
+	if (person === 'Both') {
+		records = [
+			{ activity, date_of_activity: date, person: 'Mati' },
+			{ activity, date_of_activity: date, person: 'Paulina' }
+		]
+	} else {
+		records = [{ activity, date_of_activity: date, person }]
+	}
 
-  const { error } = await supa
-    .from('activities')
-    .insert(records)
+	await supa.from('activities').insert(records)
 
-  if (error) {
-    console.error('Błąd Supabase:', error)
-    alert('Nie udało się zapisać 😢')
-    return
-  }
-
-  alert('Zapisano 💪')
-
-	// reset formularza
-const today = new Date();
-dateInput.value =
-  `${String(today.getDate()).padStart(2, '0')}-` +
-  `${String(today.getMonth() + 1).padStart(2, '0')}-` +
-  today.getFullYear();
-
-activitySelect.selectedIndex = 0;
-personSelect.selectedIndex = 0;
-
-	// Przeładuj aktywności
 	displayActivities()
 	loadActivityCounts()
 })
