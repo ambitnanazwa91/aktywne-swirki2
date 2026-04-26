@@ -277,7 +277,7 @@ btn.addEventListener('click', async () => {
 	const activity = activitySelect.value
 	const person = personSelect.value
 
-	if (!date || !activity || !person) return alert('uzupełnij')
+	if (!date || !activity || !person) return alert('Uzupełnij dane!')
 
 	let records = []
 
@@ -291,6 +291,7 @@ btn.addEventListener('click', async () => {
 	}
 
 	await supa.from('activities').insert(records)
+	alert('Udało się poprawnie dodać aktywość! Gratulacje!')
 
 	displayActivities()
 	loadActivityCounts()
