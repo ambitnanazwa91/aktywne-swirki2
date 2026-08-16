@@ -443,6 +443,13 @@ button:disabled {
     gap: 8px;
 }
 
+.field-date {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    contain: inline-size;
+}
+
 .field label {
     color: var(--ink-soft);
     font-size: 0.77rem;
@@ -473,6 +480,37 @@ button:disabled {
 .field input[type="date"]::-webkit-date-and-time-value {
     min-width: 0;
     text-align: left;
+}
+
+/* iOS Safari narzuca polu daty własną minimalną szerokość. */
+@supports (-webkit-touch-callout: none) {
+    .field-date {
+        display: block;
+        overflow: hidden;
+    }
+
+    .field-date label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .field-date input[type="date"] {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        inline-size: 100% !important;
+        min-inline-size: 0 !important;
+        max-inline-size: 100% !important;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    .field-date input[type="date"]::-webkit-datetime-edit,
+    .field-date input[type="date"]::-webkit-date-and-time-value {
+        min-width: 0;
+        max-width: 100%;
+        padding: 0;
+    }
 }
 
 .field input:focus,
