@@ -1,57 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aktywne świrki 2026</title>
+    <meta name="description" content="Statystyki wspólnych aktywności Pauliny i Matiego.">
+    <meta name="theme-color" content="#101828">
+    <meta property="og:locale" content="pl_PL">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Statystyki — Aktywne Świrki">
+    <meta property="og:description" content="Miesięczne wyniki, ulubione aktywności i wspólny budżet Pauliny i Matiego.">
+    <meta property="og:url" content="https://ambitnanazwa91.github.io/aktywne-swirki2/stats.html">
+    <meta property="og:image" content="https://ambitnanazwa91.github.io/aktywne-swirki2/img/social-preview.png">
+    <meta property="og:image:width" content="1733">
+    <meta property="og:image:height" content="908">
+    <meta property="og:image:alt" content="Aktywne Świrki — dwa sportowe pieski i hasło Razem łatwiej ruszyć z miejsca.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Statystyki — Aktywne Świrki">
+    <meta name="twitter:description" content="Miesięczne wyniki, ulubione aktywności i wspólny budżet Pauliny i Matiego.">
+    <meta name="twitter:image" content="https://ambitnanazwa91.github.io/aktywne-swirki2/img/social-preview.png">
+    <title>Statystyki — Aktywne Świrki</title>
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pl.js"></script>
-    <script src="https://kit.fontawesome.com/5af0fc9bc5.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="stats.js" defer></script>
 </head>
 
 <body>
-    <!-- <header class="header">
-        <div class="container">
-            <div class="logo">Sportowe świrki</div>
-            <nav class="menu" aria-label="Główne">
-                <a href="#home">Start</a>
-                <a href="#about">O nas</a>
-                <a href="#contact">Kotestntakt</a>
-            </nav>
-            <button class="burger" aria-label="Otwórz menu">☰</button>
-        </div>
-    </header> -->
+    <a class="skip-link" href="#content">Przejdź do treści</a>
 
-    <main>
-        <section id="home" class="container hero">
-            <div class="logo-wrapper">
-                <img class="logo" src="img/logo.png" alt="Logo">
+    <header class="site-header">
+        <div class="shell topbar">
+            <a class="brand" href="index.html" aria-label="Aktywne Świrki — strona główna">
+                <span class="brand-dot" aria-hidden="true">AŚ</span>
+                <span>Aktywne Świrki</span>
+            </a>
+            <nav class="main-nav" aria-label="Główna nawigacja">
+                <a href="index.html">Aktywności</a>
+                <a class="is-active" href="stats.html" aria-current="page">Statystyki</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="content">
+        <section class="stats-hero">
+            <div class="shell stats-hero-inner">
+                <div>
+                    <p class="eyebrow">Wasze tempo</p>
+                    <h1>Statystyki, które naprawdę motywują.</h1>
+                    <p>Sprawdźcie, co robicie najczęściej i jak dzielicie wspólny wysiłek.</p>
+                </div>
+                <a class="button button-light" href="index.html#dodaj">＋ Dodaj aktywność</a>
             </div>
         </section>
 
-        
+        <section class="page-section shell stats-content" aria-labelledby="stats-heading">
+            <div class="section-heading month-heading-row">
+                <div>
+                    <p class="eyebrow">Miesięczny raport</p>
+                    <h2 id="stats-heading">Najważniejsze liczby</h2>
+                </div>
+                <div class="month-changer month-changer-light" aria-label="Wybierz miesiąc">
+                    <button id="statsPrevMonth" type="button" aria-label="Poprzedni miesiąc">←</button>
+                    <p id="statsMonth" aria-live="polite"></p>
+                    <button id="statsNextMonth" type="button" aria-label="Następny miesiąc">→</button>
+                </div>
+            </div>
 
+            <p id="statsStatus" class="form-status stats-status" role="status" aria-live="polite"></p>
 
+            <div class="stats-metrics" aria-label="Najważniejsze statystyki">
+                <article class="stat-card stat-card-yellow">
+                    <span class="stat-card-label">Wszystkie wpisy</span>
+                    <strong id="totalActivities">—</strong>
+                    <span>aktywności w miesiącu</span>
+                </article>
+                <article class="stat-card stat-card-blue">
+                    <span class="stat-card-label">Aktywne dni</span>
+                    <strong id="activeDays">—</strong>
+                    <span>dni z przynajmniej jednym wpisem</span>
+                </article>
+                <article class="stat-card stat-card-pink">
+                    <span class="stat-card-label">Numer jeden</span>
+                    <strong id="topActivity">—</strong>
+                    <span>najczęściej wybierana aktywność</span>
+                </article>
+                <article class="stat-card stat-card-dark">
+                    <span class="stat-card-label">Wspólny budżet</span>
+                    <strong id="sharedBudget">—</strong>
+                    <span>zł do wykorzystania</span>
+                </article>
+            </div>
+
+            <div class="stats-grid">
+                <article class="panel stats-panel">
+                    <div class="card-heading">
+                        <span class="card-icon card-icon-yellow" aria-hidden="true">◎</span>
+                        <div><h3>Ulubione aktywności</h3><p>Udział poszczególnych rodzajów ruchu</p></div>
+                    </div>
+                    <div id="activityBreakdown" class="breakdown-list">
+                        <div class="state-card state-card-compact">Ładuję dane…</div>
+                    </div>
+                </article>
+
+                <article class="panel stats-panel">
+                    <div class="card-heading">
+                        <span class="card-icon card-icon-blue" aria-hidden="true">⇄</span>
+                        <div><h3>Paulina i Mati</h3><p>Przyjazne porównanie liczby wpisów</p></div>
+                    </div>
+                    <div id="peopleComparison" class="people-comparison">
+                        <div class="state-card state-card-compact">Ładuję dane…</div>
+                    </div>
+                </article>
+
+                <article class="panel stats-panel stats-panel-wide">
+                    <div class="card-heading">
+                        <span class="card-icon card-icon-pink" aria-hidden="true">≡</span>
+                        <div><h3>Ostatnie wpisy</h3><p>Najnowsze aktywności w wybranym miesiącu</p></div>
+                    </div>
+                    <div id="recentActivities" class="recent-list">
+                        <div class="state-card state-card-compact">Ładuję dane…</div>
+                    </div>
+                </article>
+            </div>
+        </section>
     </main>
 
-    <footer class="container text-center" style="padding:1rem 0;">
-        <small>&copy; 2026 Sportowe świrki</small>
+    <footer class="site-footer">
+        <div class="shell footer-inner">
+            <p><strong>Aktywne Świrki</strong><br><span>Razem łatwiej ruszyć z miejsca.</span></p>
+            <small>© <span data-current-year></span> Aktywne Świrki</small>
+        </div>
     </footer>
-    </select>
-
-    <script src="stats.js" defer></script>
 </body>
 
 </html>

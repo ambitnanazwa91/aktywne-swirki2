@@ -1,93 +1,218 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aktywne świrki 2026</title>
+    <meta name="description" content="Aktywne Świrki — wspólny dziennik ruchu Pauliny i Matiego.">
+    <meta name="theme-color" content="#f6c64a">
+    <meta property="og:locale" content="pl_PL">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Aktywne Świrki — razem w ruchu">
+    <meta property="og:description" content="Wspólny dziennik aktywności, motywacji i małych nagród.">
+    <meta property="og:url" content="https://ambitnanazwa91.github.io/aktywne-swirki2/">
+    <meta property="og:image" content="https://ambitnanazwa91.github.io/aktywne-swirki2/img/social-preview.png">
+    <meta property="og:image:width" content="1733">
+    <meta property="og:image:height" content="908">
+    <meta property="og:image:alt" content="Aktywne Świrki — dwa sportowe pieski i hasło Razem łatwiej ruszyć z miejsca.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Aktywne Świrki — razem w ruchu">
+    <meta name="twitter:description" content="Wspólny dziennik aktywności, motywacji i małych nagród.">
+    <meta name="twitter:image" content="https://ambitnanazwa91.github.io/aktywne-swirki2/img/social-preview.png">
+    <title>Aktywne Świrki — razem w ruchu</title>
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/pl.js"></script>
-    <script src="https://kit.fontawesome.com/5af0fc9bc5.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="script.js" defer></script>
 </head>
 
 <body>
-    <!-- <header class="header">
-        <div class="container">
-            <div class="logo">Sportowe świrki</div>
-            <nav class="menu" aria-label="Główne">
-                <a href="#home">Start</a>
-                <a href="#about">O nas</a>
-                <a href="#contact">Kotestntakt</a>
+    <a class="skip-link" href="#content">Przejdź do treści</a>
+
+    <header class="site-header">
+        <div class="shell topbar">
+            <a class="brand" href="index.html" aria-label="Aktywne Świrki — strona główna">
+                <span class="brand-dot" aria-hidden="true">AŚ</span>
+                <span>Aktywne Świrki</span>
+            </a>
+            <nav class="main-nav" aria-label="Główna nawigacja">
+                <a class="is-active" href="index.html" aria-current="page">Aktywności</a>
+                <a href="stats.html">Statystyki</a>
             </nav>
-            <button class="burger" aria-label="Otwórz menu">☰</button>
         </div>
-    </header> -->
+    </header>
 
-    <main>
-        <section id="home" class="container hero">
-            <div class="logo-wrapper">
-                <img class="logo" src="img/logo.png" alt="Logo">
-            </div>
-        </section>
-
-        <section id="main" class="container-main">
-            <div class="container-act">
-                <input id="myDate" type="text" class="myInput" placeholder="Wybierz datę">
-                <select id="Activity" class="flat-input myInput" aria-label="Wybierz aktywność">
-                    <option value="" disabled selected>Wybierz aktywność</option>
-                    <option value="Spacer">Spacer</option>
-                    <option value="Joga">Joga</option>
-                    <option value="Rower">Rower</option>
-                    <option value="Basen">Basen</option>
-                    <option value="Nauka">Nauka</option>
-                </select>
-                <select id="Name" class="flat-input myInput" aria-label="Wybierz osobe">
-                    <option value="" disabled selected>Wybierz osobe</option>
-                    <option value="Mati">Mati</option>
-                    <option value="Paulina">Paulina</option>
-                    <option value="Both">Razem</option>
-                </select>
-            </div>
-            <div class="btn-accept btn"> Akceptuje </div>
-        </section>
-
-        <section id="main-activities">
-            <div id="activities" class="container-main">
-                <div class="month-changer">
-                    <div><button><i class="fa-solid fa-angle-left iconleft icon"></i></button></div>
-                    <p class="currentMonth">Styczeń</p>
-                    <div><button><i class="fa-solid fa-angle-right iconright icon"></i></button></div>
+    <main id="content">
+        <section class="hero-section">
+            <div class="shell hero-grid">
+                <div class="hero-copy">
+                    <p class="eyebrow">Małe kroki. Wspólny cel.</p>
+                    <h1>Ruch smakuje lepiej, kiedy robimy go <span>razem.</span></h1>
+                    <p class="hero-lead">Zapisujcie spacery, treningi i naukę. Każda wspólna seria zasila też budżet na małe nagrody.</p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#dodaj">Dodaj aktywność</a>
+                        <a class="button button-secondary" href="stats.html">Zobacz statystyki</a>
+                    </div>
+                    <ul class="hero-points" aria-label="Najważniejsze możliwości">
+                        <li><span aria-hidden="true">✓</span> szybki zapis</li>
+                        <li><span aria-hidden="true">✓</span> wspólna motywacja</li>
+                        <li><span aria-hidden="true">✓</span> historia miesiąca</li>
+                    </ul>
                 </div>
-                <div id="activitiesList" class="activities-grid">
-                    <!-- Aktywności będą ładować się tutaj dynamicznie -->
+
+                <div class="hero-art" aria-label="Logo Aktywnych Świrków">
+                    <div class="hero-orbit hero-orbit-one" aria-hidden="true"></div>
+                    <div class="hero-orbit hero-orbit-two" aria-hidden="true"></div>
+                    <img src="img/logo.png" alt="Dwa uśmiechnięte sportowe pieski — logo Aktywnych Świrków">
+                    <div class="hero-sticker hero-sticker-top" aria-hidden="true">Damy radę!</div>
+                    <div class="hero-sticker hero-sticker-bottom" aria-hidden="true">+20 zł</div>
                 </div>
             </div>
-            <div class="summary">
+        </section>
 
-                <div id="activitiesCount" class="activitiesCount"></div>
-                <div id="wspolneCount" class="activitiesCount activitiesCount_right"></div>
+        <section id="dodaj" class="page-section shell">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Nowy wpis</p>
+                    <h2>Co dziś zrobiliście?</h2>
+                </div>
+                <p>Trzy pola i gotowe — wynik od razu pojawi się w bieżącym miesiącu.</p>
+            </div>
+
+            <div class="panel entry-panel">
+                <form id="activityForm" class="activity-form" novalidate>
+                    <div class="field">
+                        <label for="myDate">Data</label>
+                        <input id="myDate" name="date" type="date" required>
+                    </div>
+                    <div class="field">
+                        <label for="Activity">Aktywność</label>
+                        <select id="Activity" name="activity" required>
+                            <option value="">Wybierz aktywność</option>
+                            <option value="Spacer">Spacer</option>
+                            <option value="Joga">Joga</option>
+                            <option value="Rower">Rower</option>
+                            <option value="Basen">Basen</option>
+                            <option value="Nauka">Nauka</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="Name">Kto?</label>
+                        <select id="Name" name="person" required>
+                            <option value="">Wybierz osobę</option>
+                            <option value="Mati">Mati</option>
+                            <option value="Paulina">Paulina</option>
+                            <option value="Both">Razem</option>
+                        </select>
+                    </div>
+                    <button id="submitActivity" class="button button-primary form-submit" type="submit">
+                        <span aria-hidden="true">＋</span> Dodaj wpis
+                    </button>
+                </form>
+                <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
             </div>
         </section>
 
+        <section class="page-section shell" aria-labelledby="month-heading">
+            <div class="section-heading month-heading-row">
+                <div>
+                    <p class="eyebrow">Miesięczny przegląd</p>
+                    <h2 id="month-heading">Wasze aktywności</h2>
+                </div>
+                <div class="month-changer" aria-label="Wybierz miesiąc">
+                    <button id="prevMonth" type="button" aria-label="Poprzedni miesiąc">←</button>
+                    <p class="currentMonth" aria-live="polite"></p>
+                    <button id="nextMonth" type="button" aria-label="Następny miesiąc">→</button>
+                </div>
+            </div>
+
+            <div class="month-metrics" aria-label="Podsumowanie wybranego miesiąca">
+                <article class="metric metric-all">
+                    <span class="metric-icon" aria-hidden="true">⚡</span>
+                    <div><strong id="monthTotal">—</strong><span>wszystkich wpisów</span></div>
+                </article>
+                <article class="metric metric-paulina">
+                    <span class="metric-avatar" aria-hidden="true">P</span>
+                    <div><strong id="paulinaMonthTotal">—</strong><span>Paulina</span></div>
+                </article>
+                <article class="metric metric-mati">
+                    <span class="metric-avatar" aria-hidden="true">M</span>
+                    <div><strong id="matiMonthTotal">—</strong><span>Mati</span></div>
+                </article>
+            </div>
+
+            <div id="activitiesList" class="activities-grid" aria-live="polite">
+                <div class="state-card">Ładuję aktywności…</div>
+            </div>
+        </section>
+
+        <section class="page-section page-section-soft">
+            <div class="shell">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Dłuższa perspektywa</p>
+                        <h2>Regularność i wspólne nagrody</h2>
+                    </div>
+                    <p>Porównajcie miesięczne wyniki i zapiszcie, na co przeznaczyliście wspólny budżet.</p>
+                </div>
+
+                <div class="summary-grid">
+                    <article class="panel summary-card">
+                        <div class="card-heading">
+                            <span class="card-icon card-icon-blue" aria-hidden="true">↗</span>
+                            <div><h3>Wasza regularność</h3><p>Liczba wpisów w każdym miesiącu</p></div>
+                        </div>
+                        <div id="activitiesCount" class="person-summary" aria-live="polite">
+                            <div class="state-card state-card-compact">Ładuję podsumowanie…</div>
+                        </div>
+                    </article>
+
+                    <article class="panel summary-card">
+                        <div class="card-heading">
+                            <span class="card-icon card-icon-yellow" aria-hidden="true">★</span>
+                            <div><h3>Wspólny budżet</h3><p>20 zł za każdą sparowaną aktywność</p></div>
+                        </div>
+                        <div id="wspolneCount" class="rewards-list" aria-live="polite">
+                            <div class="state-card state-card-compact">Ładuję nagrody…</div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer class="container text-center" style="padding:1rem 0;">
-        <small>&copy; 2026 Sportowe świrki</small>
+    <footer class="site-footer">
+        <div class="shell footer-inner">
+            <p><strong>Aktywne Świrki</strong><br><span>Razem łatwiej ruszyć z miejsca.</span></p>
+            <small>© <span data-current-year></span> Aktywne Świrki</small>
+        </div>
     </footer>
-    </select>
 
-    <script src="script.js" defer></script>
+    <dialog id="purchaseModal" class="purchase-modal" aria-labelledby="modalTitle">
+        <form id="purchaseForm" method="dialog">
+            <button class="modal-close" type="button" aria-label="Zamknij okno">×</button>
+            <span class="modal-icon" aria-hidden="true">🛍️</span>
+            <p class="eyebrow">Wspólna nagroda</p>
+            <h2 id="modalTitle">Co kupiliście?</h2>
+            <p class="modal-intro">Zapis zostanie przypisany do miesiąca <strong id="modalMonth"></strong>.</p>
+            <div class="field">
+                <label for="purchasePaulina">Paulina</label>
+                <input id="purchasePaulina" type="text" maxlength="120" placeholder="Np. książkę">
+            </div>
+            <div class="field">
+                <label for="purchaseMati">Mati</label>
+                <input id="purchaseMati" type="text" maxlength="120" placeholder="Np. grę">
+            </div>
+            <p id="modalStatus" class="form-status" role="status" aria-live="polite"></p>
+            <div class="modal-actions">
+                <button class="button button-secondary cancel-modal" type="button">Anuluj</button>
+                <button id="savePurchases" class="button button-primary" type="submit">Zapisz zakupy</button>
+            </div>
+        </form>
+    </dialog>
 </body>
 
 </html>
